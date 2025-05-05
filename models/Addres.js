@@ -2,7 +2,7 @@ const  mongoose = require('mongoose')
 
 const addressSchema = mongoose.Schema({
     userid: {
-        type: Number,
+        type: String,
         required: [ true, "please add the userid"],
     },
 

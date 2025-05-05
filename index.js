@@ -7,6 +7,9 @@ const deliveryBoyRoutes = require('./routes/deliveryBoyRoutes')
 require("dotenv").config() 
 const orderRoutes = require("./routes/order.routes")
 const medicineRoutes = require("./routes/medicineRoutes")
+const DeliveryAssessment = require('./routes/DeliveryAssessmentRoutes')
+const Earning = require('./routes/EarningRoutes')
+
 
 const port = process.env.PORT || 3001
 
@@ -33,6 +36,8 @@ app.use("/address", addressRoutes )
 app.use("/delivery", deliveryBoyRoutes)
 app.use("/api/donar", require("./routes/donar.routes"))
 app.use("/api/report", require("./routes/report.routes"))
+app.use("/earning", Earning)
+app.use("/api", DeliveryAssessment) 
 
 app.use('/api/prescriptions' , require("./routes/prescriptionRoutes"))
 app.use('/api/suggestions', require("./routes/suggestionRoutes"))

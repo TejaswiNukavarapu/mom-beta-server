@@ -1,9 +1,10 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 
 const deliveryBoySchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
+    required: true,
   },
   age: {
     type: Number,
@@ -18,37 +19,28 @@ const deliveryBoySchema = new mongoose.Schema({
   },
   vehicleType: {
     type: String,
-
   },
   vehicleNumber: {
     type: String,
-    // required: true,
   },
   available: {
-    type: String,
-    default: true,
+    type: Boolean,
+    default: true, // Must be boolean for assignment logic to work
   },
   status: {
     type: String,
     enum: ['Online', 'Offline', 'Busy'],
     default: 'Online',
   },
-  location: { 
+  location: {
     type: String,
-  
   },
   rating: {
     type: Number,
     default: 0,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
+  }
+}, {
+  timestamps: true 
 });
 
 module.exports = mongoose.model('DeliveryBoy', deliveryBoySchema);
