@@ -5,9 +5,9 @@ const DeliveryAssessment = require('../models/DeliveryAssessment');
 
 // Create Order
 exports.createOrder = async (req, res) => {
+  const user_id = req.userId
   try {
     const {
-      user_id,
       address_id,
       ETA,
       medicines,
