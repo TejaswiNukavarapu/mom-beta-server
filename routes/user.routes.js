@@ -4,7 +4,7 @@ const userAuth = require('../middlewares/userAuth')
 const { registerUsers, otpLogin, startRoute, verifyOtp, deleteUser, getUserDetails, emailOtp } = require('../controllers/user.controllers')
 
 //starter route
-router.get('/', startRoute)
+router.get('/all', startRoute)
 
 //otp login
 router.post('/login',otpLogin)
