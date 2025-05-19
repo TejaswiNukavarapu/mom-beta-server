@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const userAuth = require('../middlewares/userAuth');
-const Notification = require('../models/notification.model');
 const User = require('../models/user.models');
-const { getNotifications, clearNotifications } = require('../controllers/notification.controller');
+const { getNotifications, clearNotifications, sendNotificationToUser } = require('../controllers/notification.controller');
+const Notification = require('../models/notification.model');
 
-// ✅ Send to all users
+// Send notification to all users
 router.post('/notify-all', userAuth, async (req, res) => {
   try {
     const { title, description } = req.body;
@@ -18,7 +18,7 @@ router.post('/notify-all', userAuth, async (req, res) => {
     const notifications = users.map(user => ({
       userId: user._id,
       title,
-      description
+      description,
     }));
 
     await Notification.insertMany(notifications);
@@ -30,10 +30,13 @@ router.post('/notify-all', userAuth, async (req, res) => {
   }
 });
 
-// ✅ Get notifications
+// Send notification to a single user
+router.post('/notify', userAuth, sendNotificationToUser);
+
+// Get notifications for logged-in user
 router.get('/notification', userAuth, getNotifications);
 
-// ✅ Clear notifications
+// Clear notifications for logged-in user
 router.delete('/notification', userAuth, clearNotifications);
 
 module.exports = router;

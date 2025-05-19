@@ -1,8 +1,6 @@
-// controllers/notification.controller.js
-
 const Notification = require('../models/notification.model');
 
-// getNotifications
+// Get notifications for logged-in user
 const getNotifications = async (req, res) => {
   try {
     const userId = req.userId;
@@ -14,7 +12,7 @@ const getNotifications = async (req, res) => {
   }
 };
 
-// clearNotifications
+// Clear notifications for logged-in user
 const clearNotifications = async (req, res) => {
   try {
     const userId = req.userId;
@@ -26,7 +24,31 @@ const clearNotifications = async (req, res) => {
   }
 };
 
+// Send notification to a single user
+const sendNotificationToUser = async (req, res) => {
+  try {
+    const { userId, title, description } = req.body;
+
+    if (!userId || !title) {
+      return res.status(400).json({ message: 'userId and title are required' });
+    }
+
+    const notification = new Notification({
+      userId,
+      title,
+      description,
+    });
+
+    await notification.save();
+    return res.status(201).json({ message: 'Notification sent successfully', notification });
+  } catch (error) {
+    console.error('Error sending notification:', error);
+    return res.status(500).json({ message: 'Failed to send notification' });
+  }
+};
+
 module.exports = {
   getNotifications,
-  clearNotifications
+  clearNotifications,
+  sendNotificationToUser,
 };
