@@ -11,7 +11,7 @@ router.post('/notifications/broadcast', userAuth, async (req, res) => {
   try {
     const { title, description } = req.body;
 
-    const users = await User.find({}, '_id');
+    const users = await User.find({}, '_id'); // get all user IDs
 
     const notifications = users.map((user) => ({
       userId: user._id,
@@ -19,7 +19,7 @@ router.post('/notifications/broadcast', userAuth, async (req, res) => {
       description,
     }));
 
-    await Notification.insertMany(notifications);
+    await Notification.insertMany(notifications, { ordered: false });
 
     return res.status(201).json({ message: 'Notification sent to all users' });
   } catch (error) {
@@ -27,4 +27,5 @@ router.post('/notifications/broadcast', userAuth, async (req, res) => {
     return res.status(500).json({ message: 'Failed to send notifications' });
   }
 });
+
 module.exports = router;
