@@ -180,17 +180,6 @@ const registerPushToken = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
-const getNotifications = async (req, res) => {
-  try {
-    const userId = req.userId;
-    // Fetch notifications for userId from DB
-    const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
-    res.status(200).json({ notifications });
-  } catch (error) {
-    console.error('Error fetching notifications:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
 
 
-module.exports = { registerUsers, otpLogin, startRoute, verifyOtp, deleteUser, getUserDetails, emailOtp, registerPushToken, getNotifications};
+module.exports = { registerUsers, otpLogin, startRoute, verifyOtp, deleteUser, getUserDetails, emailOtp, registerPushToken};

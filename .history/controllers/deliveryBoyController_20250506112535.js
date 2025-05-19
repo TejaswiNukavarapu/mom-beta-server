@@ -1,6 +1,7 @@
 const DeliveryBoy = require('../models/DeliveryBoy');
 const jwt = require('jsonwebtoken');
 
+// Register new delivery boy
 exports.registerDeliveryBoy = async (req, res) => {
     const { name, email, phoneNumber, vehicleType, vehicleNumber, age, location } = req.body;
     try {
@@ -26,6 +27,7 @@ exports.registerDeliveryBoy = async (req, res) => {
     }
 };
 
+// Login (OTP simulation)
 exports.deliveryBoyLogin = async (req, res) => {
     const { phoneNumber } = req.body;
     try {
@@ -48,6 +50,7 @@ exports.deliveryBoyLogin = async (req, res) => {
     }
 };
 
+// Verify OTP and issue JWT
 exports.verifyDeliveryBoyOtp = async (req, res) => {
     const { otp, phoneNumber } = req.body;
     try {
@@ -69,6 +72,7 @@ exports.verifyDeliveryBoyOtp = async (req, res) => {
     }
 };
 
+// Middleware-protected profile
 exports.getDeliveryBoyProfile = async (req, res) => {
     try {
         const deliveryBoy = await DeliveryBoy.findById(req.deliveryBoyId);
@@ -81,6 +85,7 @@ exports.getDeliveryBoyProfile = async (req, res) => {
     }
 };
 
+// Protected CRUD Operations
 
 exports.getAllDeliveryBoys = async (req, res) => {
     try {

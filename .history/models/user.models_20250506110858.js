@@ -1,34 +1,30 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    name:{
         type: String,
     },
-    mobileNo: {
+    mobileNo:{
         type: String,
         required: true,
         unique: true
     },
-    dateOfBirth: {
+    dateOfBirth:{
         type: Date,
     },
-    gender: {
+    gender:{
         type: String,
-        enum: ["male", "female", "other"],
+        enum:["male" , "female" , "other"],
     },
-    isAdmin: {
+    isAdmin:{
         type: Boolean,
         default: false
     },
-    isRegistered: {
+    isRegistered:{
         type: Boolean,
         default: false
     },
-    expoPushToken: { 
-        type: String,
-        default: null
-    },
-});
+})
 
-const Users = mongoose.model('User', userSchema);
-module.exports = Users;
+const Users = mongoose.model('User', userSchema) 
+module.exports = Users;  

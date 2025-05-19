@@ -157,40 +157,7 @@ const deleteUser = async (req, res) => {
     }
 }
 
-const registerPushToken = async (req, res) => {
-  const { userId, expoPushToken } = req.body;
-
-  if (!userId || !expoPushToken) {
-    return res.status(400).json({ message: 'Missing userId or expoPushToken' });
-  }
-
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Save token (replace existing or store multiple tokens as needed)
-    user.expoPushToken = expoPushToken;
-    await user.save();
-
-    return res.status(200).json({ message: 'Push token registered successfully' });
-  } catch (error) {
-    console.error('Error registering push token:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-};
-const getNotifications = async (req, res) => {
-  try {
-    const userId = req.userId;
-    // Fetch notifications for userId from DB
-    const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
-    res.status(200).json({ notifications });
-  } catch (error) {
-    console.error('Error fetching notifications:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
 
 
-module.exports = { registerUsers, otpLogin, startRoute, verifyOtp, deleteUser, getUserDetails, emailOtp, registerPushToken, getNotifications};
+
+module.exports = { registerUsers, otpLogin, startRoute, verifyOtp, deleteUser, getUserDetails, emailOtp };

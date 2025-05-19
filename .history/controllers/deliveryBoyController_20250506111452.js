@@ -60,7 +60,7 @@ exports.verifyDeliveryBoyOtp = async (req, res) => {
             return res.status(404).json({ message: 'Delivery boy not found' });
         }
 
-        const token = jwt.sign({ deliveryBoyId: deliveryBoy._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign({ deliveryBoyId: deliveryBoy._id }, process.env.JWT_SECRET);
         req.session.otp = null;
 
         return res.status(200).json({ message: 'Login successful', token });
@@ -78,54 +78,5 @@ exports.getDeliveryBoyProfile = async (req, res) => {
         return res.status(200).json(deliveryBoy);
     } catch (error) {
         return res.status(500).json({ error: error.message });
-    }
-};
-
-
-exports.getAllDeliveryBoys = async (req, res) => {
-    try {
-        const deliveryBoys = await DeliveryBoy.find();
-        res.status(200).json(deliveryBoys);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-exports.getDeliveryBoyById = async (req, res) => {
-    try {
-        const deliveryBoy = await DeliveryBoy.findById(req.params.id);
-        if (!deliveryBoy) {
-            return res.status(404).json({ message: 'Delivery boy not found' });
-        }
-        res.status(200).json(deliveryBoy);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-exports.updateDeliveryBoy = async (req, res) => {
-    try {
-        const deliveryBoy = await DeliveryBoy.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
-        if (!deliveryBoy) {
-            return res.status(404).json({ message: 'Delivery boy not found' });
-        }
-        res.status(200).json(deliveryBoy);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
-
-exports.deleteDeliveryBoy = async (req, res) => {
-    try {
-        const deliveryBoy = await DeliveryBoy.findByIdAndDelete(req.params.id);
-        if (!deliveryBoy) {
-            return res.status(404).json({ message: 'Delivery boy not found' });
-        }
-        res.status(200).json({ message: 'Delivery boy deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
     }
 };

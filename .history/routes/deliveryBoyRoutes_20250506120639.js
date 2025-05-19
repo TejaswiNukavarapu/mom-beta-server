@@ -8,7 +8,7 @@ router.post('/login', deliveryBoyController.deliveryBoyLogin);
 router.post('/verify-otp', deliveryBoyController.verifyDeliveryBoyOtp);
 router.get('/all', deliveryBoyController.getAllDeliveryBoys);
 router.get('/get/:id',  deliveryBoyController.getDeliveryBoyById);
-router.put('/up/:id',  deliveryBoyController.updateDeliveryBoy);
+router.put('/:id',  deliveryBoyController.updateDeliveryBoy);
 router.delete('/:id', deliveryBoyController.deleteDeliveryBoy);
 
 module.exports = router;

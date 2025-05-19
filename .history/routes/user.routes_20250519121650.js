@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userAuth = require('../middlewares/userAuth');
-const {registerUsers,otpLogin,startRoute,verifyOtp,deleteUser,getUserDetails,emailOtp,registerPushToken, getNotifications} = require('../controllers/user.controllers');
+const {registerUsers,otpLogin,startRoute,verifyOtp,deleteUser,getUserDetails,emailOtp,registerPushToken} = require('../controllers/user.controllers');
 
 // Starter route
 router.get('/all', startRoute);
@@ -25,7 +25,6 @@ router.get('/user-details', userAuth, getUserDetails);
 router.post('/email-otp', emailOtp);
 
 // Register Expo push token
-router.post('/notification', registerPushToken);
-router.get('/notify',getNotifications)
+router.post('/register-token', registerPushToken);
 
 module.exports = router;
