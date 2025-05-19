@@ -124,11 +124,19 @@ const verifyOtp = async (req, res) => {
                 req.session.otp = null; // Clear the OTP after verification
                 req.session.userId = user._id;
                 req.session.mobileNo = user.mobileNo;
-                const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-                return res.status(200).json({ message: 'otp verified successfully', token, isExist: false });
+                const token = jwt.sign(
+                    { userId: user._id.toString() },
+                    process.env.JWT_SECRET,
+                    { expiresIn: '1h' }
+                );
+                return res.status(200).json({ message: 'OTP verified successfully', token, isExist: false });
             }
 
-            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+            const token = jwt.sign(
+                { userId: user._id.toString() },
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
             req.session.otp = null;
 
             return res.status(200).json({ message: 'OTP verified successfully', token, isExist: true });
