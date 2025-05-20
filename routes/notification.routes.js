@@ -59,10 +59,8 @@ router.post('/notify-all', userAuth, async (req, res) => {
   }
 });
 
-// ✅ Get notifications for the logged-in user
 router.get('/notification', userAuth, getNotifications);
 
-// ✅ Clear notifications for the logged-in user
-router.delete('/notification', userAuth, clearNotifications);
+router.delete('/notification-clear', userAuth, clearNotifications);
 
 module.exports = router;

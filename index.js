@@ -44,7 +44,7 @@ app.use('/api/suggestions', require("./routes/suggestionRoutes"))
 app.use('/api/medicines' , medicineRoutes)
 app.use('/api/medicine', medicineRoutes);
 
-app.use('/api',require('./routes/notification.routes'))
+app.use('/api/notification',require('./routes/notification.routes'))
 
 app.listen(port , ()=>{
     console.log(`app is listening at http://localhost:${port}`)
